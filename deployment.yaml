@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: date-time-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: date-time-app
+  template:
+    metadata:
+      labels:
+        app: date-time-app
+    spec:
+      containers:
+      - name: date-time-app
+        image: coder22799/golang-date-time-app:latest
+        ports:
+        - containerPort: 8080
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
